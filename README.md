@@ -1,36 +1,44 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# React Server Components Minimal Form Examples with Next.js
+
+This is an example repo for showing some simple patterns of using React Server Components,
+through Next.js, to submit simple forms with server actions and get validation errors back
+if they exist.
+
+It uses an array to store the data temporarily, simulating a some data store, and `revalidatePath`
+to trigger a revalidation of the form after a submission.
 
 ## Getting Started
 
-First, run the development server:
-
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+npm i && npm run dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Basic Form
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+The first form is a `BasicForm` component which shows a simple todo form and accompanying server
+action for creating a todo. You can disable JavaScript in your browser to see that this form
+still works without JavaScript. Next.js will send back the entire page with the new todo item
+you created rendered to HTML (check the preview in the network tab).
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+## Form with State
 
-## Learn More
+The second form is a `FormWithState` component which shows a duplicate of the `BasicForm` except
+it subscribes to `useFormState`, so it is a `"use client"` component. The accompanying server
+action does mostly the same thing as the first form, except it returns an object with `errors` that
+will contain an array of errors if there were any (missing fields) or an empty array if ther are none.
 
-To learn more about Next.js, take a look at the following resources:
+What is really cool about this form is that, even though it is a `"use client"` component, it still
+works without JavaScript. If you disable JavaScript in your browser, you will see that the form still
+works and you will get the validation errors back in the response.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Submit Button
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+Both forms have an additional submit button that uses `useFormStatus` to show how that works, and that
+the `SubmitButton` component can be reused in any form. `useFormStatus` is required to be called inside
+a form component (some child of form) to work and I see a lot of people get confused by that. I think
+you can see why it makes sense for the React team to implement this feature in such a way when you see
+how it is used.
 
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+The `SubmitButton` is also a progressively enhanced button. If you disable JavaScript, it won't break
+anything and will submit just fine. But with JS enabled, it will showing some pending text and disable
+the button until the form is done submitting.
