@@ -1,5 +1,5 @@
 import { BasicForm } from "./_components/BasicForm";
-import { ProgressivelyEnhancedForm } from "./_components/ProgressivelyEnhancedForm";
+import { FormWithState } from "./_components/FormWithState";
 import { todos } from "./_database/db";
 
 export default function Home() {
@@ -8,7 +8,7 @@ export default function Home() {
       <h1>RSC Form Example</h1>
       <BasicForm />
 
-      <ProgressivelyEnhancedForm />
+      <FormWithState />
 
       <h2>Todos</h2>
       <ul>

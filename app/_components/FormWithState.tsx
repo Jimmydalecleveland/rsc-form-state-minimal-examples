@@ -24,7 +24,7 @@ const initialFormState = {
  * your action, and this is commonly due to the action not returning the same type
  * as the initial state you pass as the 2nd argument to `useFormState`.
  */
-export function ProgressivelyEnhancedForm() {
+export function FormWithState() {
   const [state, dispatch] = useFormState(
     createTodoWithFormState,
     initialFormState
