@@ -1,5 +1,6 @@
 "use server";
 
+import { z } from "zod";
 import { revalidatePath } from "next/cache";
 import { todos } from "../_database/db";
 
@@ -72,4 +73,49 @@ export async function createTodoWithFormState(
   // as it is part of the root components fetched data.
   revalidatePath("/");
   return { errors: [] };
+}
+
+// Zod version ===========
+export const TodoSchema = z.object({
+  title: z.string().min(1),
+  description: z.string().min(1),
+});
+export type Todo = z.infer<typeof TodoSchema>;
+
+export type State = {
+  errors?: {
+    title?: string[];
+    description?: string[];
+  };
+  message?: string | null;
+};
+
+export async function createTodoWithZodValidation(
+  prevState: State | undefined,
+  formData: FormData
+): Promise<State | undefined> {
+  // simulate a server delay
+  await new Promise((resolve) => setTimeout(resolve, 1000));
+
+  const validationFields = TodoSchema.safeParse({
+    title: formData.get("title"),
+    description: formData.get("description"),
+  });
+
+  if (!validationFields.success) {
+    return {
+      errors: validationFields.error.flatten().fieldErrors,
+      message: "Missing Fields. Failed to create todo.",
+    };
+  }
+
+  // Mutate the simulated DB
+  todos.push({
+    id: Date.now(),
+    title: validationFields.data.title,
+    description: validationFields.data.description,
+    completed: false,
+  });
+
+  revalidatePath("/");
 }
