@@ -3,6 +3,9 @@ import { FormWithState } from "./_components/FormWithState";
 import { todos } from "./_database/db";
 
 export default function Home() {
+  // Typically you would await a fetch for todos here, but simply importing
+  // the todos works the same for revalidation purposes.
+
   return (
     <main>
       <h1>RSC Form Example</h1>

@@ -32,7 +32,7 @@ export function FormWithState() {
 
   return (
     <div>
-      <h3>Progressively Enhanced Form</h3>
+      <h3>Form With State</h3>
       <p>Submit with empty fields to see errors. </p>
       <p>Disable JavaScript in your browser and the form should still work.</p>
       <form action={dispatch}>

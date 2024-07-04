@@ -2,6 +2,10 @@
 import { useFormStatus } from "react-dom";
 
 /**
+ * This is a progressively enhanced submit button that will disable
+ * and show loading text while the form is pending when JS is enabled,
+ * but will also function just fine without JS.
+ *
  * This general loading state button can be used as a child of any form
  * element to hook into the form status, even if the form does not use
  * the useFormState hook.
