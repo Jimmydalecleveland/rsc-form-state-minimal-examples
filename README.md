@@ -33,7 +33,7 @@ works and you will get the validation errors back in the response.
 
 ## Submit Button
 
-Both forms have an additional submit button that uses `useFormStatus` to show how that works, and that
+All forms have an additional submit button that uses `useFormStatus` to show how that works, and that
 the `SubmitButton` component can be reused in any form. `useFormStatus` is required to be called inside
 a form component (some child of form) to work and I see a lot of people get confused by that. I think
 you can see why it makes sense for the React team to implement this feature in such a way when you see
@@ -42,3 +42,12 @@ how it is used.
 The `SubmitButton` is also a progressively enhanced button. If you disable JavaScript, it won't break
 anything and will submit just fine. But with JS enabled, it will showing some pending text and disable
 the button until the form is done submitting.
+
+## Form with Field Errors
+
+This final variant uses Zod in the server action to validate fields from `FormData` against a schema,
+and `safeParse` to get the errors back with some structure that can be used to show errors on the
+fields that caused them.
+
+I included this simply to show a little nicer pattern of using native forms with React Server Components
+and Actions.

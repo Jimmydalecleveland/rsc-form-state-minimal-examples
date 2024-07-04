@@ -76,17 +76,19 @@ export async function createTodoWithFormState(
 }
 
 // Zod version ===========
-export const TodoSchema = z.object({
-  title: z.string().min(1),
-  description: z.string().min(1),
+// These would typically be exported in their own `types` file.
+const TodoSchema = z.object({
+  title: z
+    .string()
+    .min(1, "Title is required")
+    .max(10, "Title is too long: 100 characters max"),
+  description: z.string().min(1, "Description is required"),
 });
-export type Todo = z.infer<typeof TodoSchema>;
+type Todo = z.infer<typeof TodoSchema>;
 
-export type State = {
-  errors?: {
-    title?: string[];
-    description?: string[];
-  };
+type State = {
+  // You could manually type these out to be more explicit, if you like.
+  errors?: z.typeToFlattenedError<Todo>["fieldErrors"];
   message?: string | null;
 };
 
