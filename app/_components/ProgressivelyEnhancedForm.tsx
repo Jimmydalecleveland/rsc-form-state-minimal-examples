@@ -1,6 +1,7 @@
 "use client";
 import { useFormState } from "react-dom";
 import { createTodoWithFormState } from "../_actions/todo";
+import { SubmitButton } from "./SubmitButton";
 
 const initialFormState = {
   errors: [],
@@ -44,6 +45,7 @@ export function ProgressivelyEnhancedForm() {
           <input type="text" name="description" />
         </label>
         <button type="submit">Submit</button>
+        <SubmitButton />
       </form>
       {state?.errors?.length > 0 ? (
         <ul>

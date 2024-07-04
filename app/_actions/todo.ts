@@ -4,6 +4,9 @@ import { revalidatePath } from "next/cache";
 import { todos } from "../_database/db";
 
 export async function createTodo(formData: FormData) {
+  // simulate a server delay
+  await new Promise((resolve) => setTimeout(resolve, 1000));
+
   // We could cast these values but it would be a lie, as usual, because
   // the values could be a File type, or null, etc.
   const title = formData.get("title"); // We don't know what type this is
@@ -30,6 +33,9 @@ export async function createTodoWithFormState(
   prevState: { errors: Array<string> },
   formData: FormData
 ): Promise<{ errors: Array<string> }> {
+  // simulate a server delay
+  await new Promise((resolve) => setTimeout(resolve, 1000));
+
   // We could cast these values but it would be a lie, as usual, because
   // the values could be a File type, or null, etc.
   const title = formData.get("title"); // We don't know what type this is

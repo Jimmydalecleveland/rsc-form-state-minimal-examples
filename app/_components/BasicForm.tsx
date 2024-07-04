@@ -1,4 +1,5 @@
 import { createTodo } from "../_actions/todo";
+import { SubmitButton } from "./SubmitButton";
 
 /**
  * This example shows how to use a server action with a form that uses no JS.
@@ -24,6 +25,7 @@ export function BasicForm() {
           />
         </label>
         <button type="submit">Submit</button>
+        <SubmitButton />
       </form>
     </div>
   );
